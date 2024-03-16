@@ -1,64 +1,75 @@
+import os
+import time
 
-cpf_usuario = '642.297.160-52'
-validacao_primaria = cpf_usuario[:11]
-cpf_tratado = validacao_primaria.replace('.', '')
+while True:
+    time.sleep(2)
+    os.system('cls' if os.name == 'nt' else 'clear')
+    cpf_usuario = input('''CPF (Sem pontos ou traços)
+    : ''')
+    cpf_usuario = cpf_usuario.replace('.', '').replace('-', '')
+    
 
-digitos_multiplicados = []
-contador_regressivo = 10
+    if cpf_usuario.isnumeric():
+        cpf_usuario = cpf_usuario
 
-for digito in cpf_tratado:
-    digito_inteiro = int(digito)
-    digitos_multiplicados.append(digito_inteiro * contador_regressivo)
-    contador_regressivo -= 1
+    elif cpf_usuario.isnumeric() == False:
+        print("ENTRADA INVÁLIDA")
+        continue
+    
 
-adicao_primaria = 0
-for produto in digitos_multiplicados:
-    adicao_primaria += produto
+    digitos_multiplicados = []
+    contador_regressivo = 10
 
-variavel_de_modulo = adicao_primaria * 10
+    for digito in cpf_usuario[ : 9]:
+        digito_inteiro = int(digito)
+        digitos_multiplicados.append(digito_inteiro * contador_regressivo)
+        contador_regressivo -= 1
 
-primeiro_digito = variavel_de_modulo % 11
+    adicao_primaria = 0
+    for produto in digitos_multiplicados:
+        adicao_primaria += produto
 
-if primeiro_digito > 9:
-    primeiro_digito = 0
+    variavel_de_modulo = adicao_primaria * 10
 
-else:
-    primeiro_digito = primeiro_digito
+    primeiro_digito = variavel_de_modulo % 11
+
+    if primeiro_digito > 9:
+        primeiro_digito = 0
+
+    else:
+        primeiro_digito = primeiro_digito
 
 
 
 #//////////////////////////////////////////////////////////////////////////////////////
 #OBTENÇÃO DO SEGUNDO DIGITO DO CPF
-validacao_secundaria = cpf_usuario[:13]
-cpf_tratado = validacao_secundaria.replace('.', '').replace('-', '')
 
-digitos_multiplicados = []
-contador_regressivo = 11
+    digitos_multiplicados = []
+    contador_regressivo = 11
 
-for digito in cpf_tratado:
-    digito_inteiro = int(digito)
-    digitos_multiplicados.append(digito_inteiro * contador_regressivo)
-    contador_regressivo -= 1
+    for digito in cpf_usuario[ : 10]:
+        digito_inteiro = int(digito)
+        digitos_multiplicados.append(digito_inteiro * contador_regressivo)
+        contador_regressivo -= 1
 
-adicao_secundaria = 0
-for produto in digitos_multiplicados:
-    adicao_secundaria += produto
+    adicao_secundaria = 0
+    for produto in digitos_multiplicados:
+        adicao_secundaria += produto
 
-variavel_de_modulo = adicao_secundaria * 10
+    variavel_de_modulo = adicao_secundaria * 10
 
-segundo_digito = variavel_de_modulo % 11
+    segundo_digito = variavel_de_modulo % 11
 
-if segundo_digito > 9:
-    segundo_digito = 0
+    if segundo_digito > 9:
+        segundo_digito = 0
+    
 
-else:
-    segundo_digito = segundo_digito
+    else:
+        segundo_digito = segundo_digito
+    
+    #VALIDAÇÃO FINAL
+    validacao_final = str(primeiro_digito) + str(segundo_digito)
 
-
-
-#VALIDAÇÃO FINAL
-validacao_final = str(primeiro_digito) + str(segundo_digito)
-
-cpf_comparador = cpf_usuario[:12] + validacao_final
-
-print(f'CPF VÁLIDO: {cpf_usuario}' if cpf_comparador == cpf_usuario else "CPF INVÁLIDO")
+    cpf_comparador = cpf_usuario[:9] + validacao_final
+    print('CPF VÁLIDO' if cpf_comparador == cpf_usuario else 'CPF INVÁLIDO')
+    break
