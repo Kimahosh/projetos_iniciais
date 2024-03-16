@@ -1,5 +1,5 @@
 
-cpf_usuario = '165.483.017-81'
+cpf_usuario = '642.297.160-52'
 validacao_primaria = cpf_usuario[:11]
 cpf_tratado = validacao_primaria.replace('.', '')
 
@@ -25,7 +25,7 @@ if primeiro_digito > 9:
 else:
     primeiro_digito = primeiro_digito
 
-print(primeiro_digito)
+
 
 #//////////////////////////////////////////////////////////////////////////////////////
 #OBTENÇÃO DO SEGUNDO DIGITO DO CPF
@@ -54,4 +54,11 @@ if segundo_digito > 9:
 else:
     segundo_digito = segundo_digito
 
-print(segundo_digito)
+
+
+#VALIDAÇÃO FINAL
+validacao_final = str(primeiro_digito) + str(segundo_digito)
+
+cpf_comparador = cpf_usuario[:12] + validacao_final
+
+print(f'CPF VÁLIDO: {cpf_usuario}' if cpf_comparador == cpf_usuario else "CPF INVÁLIDO")
